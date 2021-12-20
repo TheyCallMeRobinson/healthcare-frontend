@@ -45,6 +45,12 @@ export const patientAPI = {
     postPatient(data: any) {
         return apiClient.post('/patients', { ...data })
     },
+    getCommentByDateAndPatientID(date: Date, id: number){
+        return apiClient('/comment')
+    },
+    postVisit(data: any){
+        return apiClient.post('/visit', {...data})
+    }
 }
 
 export const doctorAPI = {
@@ -77,6 +83,14 @@ export const adminAPI = {
     },
     postAllergy(data: any){
         return apiClient.post('/allergies', {...data})
+    },
+    getAllAllergies(){
+        return apiClient.get('/allergies');
+    }
+}
+const EventService = {
+    getComment(id: number){
+        return apiClient.get(`/comment/${id}`)
     }
 }
 

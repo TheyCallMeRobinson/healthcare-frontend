@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import {doctorAPI} from "@/api/EventService";
+import {doctorAPI, patientAPI} from "@/api/EventService";
 import {defineComponent, reactive, toRefs} from "vue";
 
 export default defineComponent({
@@ -71,7 +71,10 @@ export default defineComponent({
     return {
       item: {},
       visitForm: {
-        doctors: ["Иванов И.И.", "Петров Д.В.", "Чубенко В.Д."],
+        doctor: "",
+        speciality:"",
+        date:"",
+        time:""
       },
       specialities: [],
       doctors: [],
@@ -105,7 +108,9 @@ export default defineComponent({
   methods:
       {
         onSubmit() {
-          console.log("click");
+          //patientAPI.postVisit(this.visitForm);
+          this.visitForm = [this.chosenDoctor.id, this.chosenSpec, this.pickedDate];
+          console.log(this.visitForm);
         }
         ,
         docPicked(event) {

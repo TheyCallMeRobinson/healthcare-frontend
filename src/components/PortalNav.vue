@@ -8,7 +8,7 @@
     >
       <el-menu-item index="/portal/main-screen"> Главная </el-menu-item>
       <el-menu-item index="/portal/profile"> Профиль </el-menu-item>
-      <el-menu-item index="/portal/system-settings"> Настройки системы </el-menu-item>
+      <el-menu-item index="/portal/system-settings" v-if="userType === 'admin'"> Настройки системы </el-menu-item>
       <el-menu-item
         index="/portal/new-visit"
         v-if="loginModule.role === 'PATIENT'"
@@ -36,10 +36,15 @@ export default defineComponent({
   data() {
     return {
       routerMode: true,
+      userType: "",
     };
   },
   computed: {
     ...mapState(["loginModule"]),
+  },
+  async created() {
+    // ToDo: достать роль клиента
+    this.userType = "admin";
   },
   methods: {
     logout() {

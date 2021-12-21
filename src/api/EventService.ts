@@ -23,6 +23,9 @@ export const authAPI = {
 }
 
 export const patientAPI = {
+    postPatient(data: any) {
+        return apiClient.post('/patients', { ...data })
+    },
     getPatientById(id: number) {
         return apiClient.get(`/patients/${id}`)
     },
@@ -35,30 +38,32 @@ export const patientAPI = {
     getPatientAllergies(id: number) {
         return apiClient.get(`/patients/${id}/allergies`)
     },
+    postVisit(patientId: number, visitData: any){
+        return apiClient.post(`/patients/${patientId}/appointments`, {...visitData})
+    },
+    getVisitByPatientId(patientId: number, visitId : number) {
+        return apiClient.get(`/patients/${patientId}/appointments/${visitId}`)
+    },
     getVisitsByPatientId(patientId: number) {
-        return apiClient.get(`/appointments?patientId=${patientId}`)
+        return apiClient.get(`/patients/${patientId}/appointments`)
     },
-    deleteVisitById(id: number) {
-        console.log(id);
-        return apiClient.delete(`/appointments/${id}`)
+    deleteVisitById(visitId: number) {
+        return apiClient.delete(`/appointments/${visitId}`)
     },
-    postPatient(data: any) {
-        return apiClient.post('/patients', { ...data })
+    postComment(doctorId : number, commentData : any){
+        return apiClient.post(`/comments/${doctorId}`, commentData)
     },
-    getCommentByDateAndPatientID(date: Date, id: number){
-        return apiClient('/comment')
+    getCommentByDoctorID(doctorId: number){
+        return apiClient.get(`/comments/${doctorId}`)
     },
-    postVisit(data: any){
-        return apiClient.post('/visit', {...data})
-    }
 }
 
 export const doctorAPI = {
-    getDoctors() {
-        return apiClient.get(`/doctors`);
-    },
     getDoctorById(id: number) {
         return apiClient.get(`/doctors/${id}`)
+    },
+    getDoctors() {
+        return apiClient.get(`/doctors`);
     },
     postSpecialityByDoctorId(doctorId: number, specialityData: any) {
         return apiClient.post(`/doctors/${doctorId}/specialities`, specialityData)
@@ -72,11 +77,11 @@ export const doctorAPI = {
 }
 
 export const adminAPI = {
-    getAdminById(id: number) {
-        return apiClient.get(`/admins/${id}`)
-    },
     postAdmin(data: any) {
         return apiClient.post('/admins', { ...data })
+    },
+    getAdminById(id: number) {
+        return apiClient.get(`/admins/${id}`)
     },
     postDoctor(data: any) {
         return apiClient.post('/doctors', { ...data })
@@ -88,6 +93,7 @@ export const adminAPI = {
         return apiClient.get('/allergies');
     }
 }
+
 const EventService = {
     getComment(id: number){
         return apiClient.get(`/comment/${id}`)

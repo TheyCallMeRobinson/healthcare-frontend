@@ -20,13 +20,11 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  props: {
+    oldVisits: [],
+  },
   data() {
     return {};
-  },
-  props: {
-    oldVisits: {
-      type: Array,
-    },
   },
 });
 </script>

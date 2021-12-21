@@ -13,12 +13,14 @@
 import { defineComponent } from "vue";
 import Future from "./Future.vue";
 import History from "./History.vue";
+import {patientAPI} from "@/api/EventService";
 
 export default defineComponent({
   data() {
     return {
       activeName: "first",
-      appointments: [
+      // visits: [],
+      visits: [
         {
           id: 0,
           doctorName: "Иванов И.И.",
@@ -54,16 +56,22 @@ export default defineComponent({
       ],
     };
   },
+  async created() {
+    this.visits = await patientAPI.getVisitsByPatientId(this.patientId)
+        .then((response) => {
+          return response.data;
+        });
+  },
   components: {
     History,
     Future,
   },
   computed: {
     newVisits() {
-      return this.appointments.filter((visit) => visit.status === "new");
+      return this.visits.filter((visit) => visit.status === "new");
     },
     oldVisits() {
-      return this.appointments.filter((visit) => visit.status === "old");
+      return this.visits.filter((visit) => visit.status === "old");
     },
   },
 });

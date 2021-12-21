@@ -1,5 +1,3 @@
-
-
 import EntityModel from '@/models/entity.model';
 
 interface Visit extends EntityModel {

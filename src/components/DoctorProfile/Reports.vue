@@ -30,7 +30,6 @@ export default defineComponent({
       }
     },
   },
-
   data() {
     return {
       reports: [
@@ -180,9 +179,6 @@ export default defineComponent({
   computed: {},
 });
 </script>
-
-
-
 
 <style scoped>
 @media (max-width: 720px) {

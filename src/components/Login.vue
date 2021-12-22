@@ -62,7 +62,7 @@ export default defineComponent({
     };
   },
   methods: {
-    onSubmit() {
+    sendComment() {
       this.$store.dispatch("login", this.formData);
     },
   },

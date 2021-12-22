@@ -9,7 +9,7 @@
     <el-form-item label="Комментарий">
       <el-input type="textarea" v-model="reportForm.recipe"></el-input>
     </el-form-item>
-    <el-button type="primary" @click="onSubmit">Отправить</el-button>
+    <el-button type="primary" @click="sendReport()">Отправить</el-button>
   </el-form>
 </template>
 
@@ -26,7 +26,7 @@ export default defineComponent({
     };
   },
   methods: {
-    onSubmit() {
+    sendReport() {
       console.log(this.reportForm);
     },
   },

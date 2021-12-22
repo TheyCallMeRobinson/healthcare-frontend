@@ -20,9 +20,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item v-if="!editMode">
-      <el-button type="info" @click="editMode = !editMode"
-        >Редактировать</el-button
-      >
+      <el-button type="info" @click="editMode = !editMode">Редактировать</el-button>
     </el-form-item>
     <el-form-item v-if="editMode">
       <el-button type="primary" @click="saveChanges">Готово</el-button>
@@ -93,7 +91,7 @@ export default {
     // reset() {
     //   this.$store.dispatch("doctorProfile/resetWeekends", null, { root: true });
     // },
-    onSubmit() {
+    sendComment() {
       console.log("sfgfs");
     },
     saveChanges() {

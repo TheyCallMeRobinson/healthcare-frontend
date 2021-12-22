@@ -45,8 +45,6 @@ export default defineComponent({
 });
 </script>
 
-
-
 <style scoped>
 .profile {
   display: flex;

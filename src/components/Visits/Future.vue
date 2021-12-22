@@ -2,7 +2,8 @@
   <el-table class="table" :data="newVisits" style="width: 100%">
     <el-table-column type="index" label="№"></el-table-column>
     <el-table-column prop="doctorName" label="Имя врача"></el-table-column>
-    <el-table-column prop="dateAndTime" label="Дата"></el-table-column>
+    <el-table-column prop="date" label="Дата"> </el-table-column>
+    <el-table-column prop="startTime" label="Время"> </el-table-column>
     <el-table-column label="Действия">
       <template #default="scope">
         <el-button type="text" size="small" @click.prevent="deleteVisit(scope.row.id)">Удалить</el-button>

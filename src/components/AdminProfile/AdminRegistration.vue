@@ -151,7 +151,7 @@ export default {
       });
   },
   methods: {
-    async onSubmit() {
+    async sendComment() {
       const regData = this.registration;
       if (this.userType === "admin") {
         const data = {
@@ -159,7 +159,7 @@ export default {
           password: regData.password,
           email: regData.email,
         };
-        adminAPI.postAdmin(data);
+        await adminAPI.postAdmin(data);
       } else if (this.userType === "doctor") {
         await adminAPI.postDoctor(regData);
         const doctors = await doctorAPI.getDoctors().then((response) => {

@@ -32,7 +32,7 @@ export default defineComponent({
   },
   data() {
     return {
-      //ToDo: убрать хардкод
+      //ToDo: убрать хардкод, кажется, здесь должны быть катины элементы
       //ToDo: куда прикрепляется этот элемент?
       reports: [
         {

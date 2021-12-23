@@ -11,7 +11,7 @@
     </el-table-column>
     <el-table-column prop="id">
       <el-button icon="el-icon-delete" class="delete-button" size="small"
-        >Удалить</el-button
+        >Удалить Shedule.vue</el-button
       >
       <router-link :to="{ name: 'addReport' }">
         <el-button

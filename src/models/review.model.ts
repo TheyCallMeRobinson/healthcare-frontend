@@ -1,6 +1,9 @@
 interface Review {
-    patientComment: string,
-    rating: number
+    doctorId: number,
+    patientId: number,
+    mark: number,
+    comment: string,
+    date: string
 }
 
 export default Review;

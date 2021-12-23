@@ -17,6 +17,9 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    example: {
+      type: Array,
+    },
   },
   data() {
     return {

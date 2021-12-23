@@ -16,7 +16,7 @@
         <Visits />
       </el-tab-pane>
       <el-tab-pane class="profile__tab" label="Болезни" name="second"
-        ><Diseases :patientId="loginModule.id"
+        ><Diseases :patientId="loginModule.id" example="[34, 45, 67]"
       /></el-tab-pane>
       <el-tab-pane class="profile__tab" label="Аллергии" name="third">
         <Allergies :patientId="loginModule.id" />

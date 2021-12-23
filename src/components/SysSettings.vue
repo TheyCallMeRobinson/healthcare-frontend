@@ -55,7 +55,7 @@ export default {
     //     });
   },
   methods: {
-    async onSubmit() {
+    async sendComment() {
       const regData = this.creation;
       const data = {
         name: regData.name,

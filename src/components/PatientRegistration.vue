@@ -134,7 +134,7 @@ export default defineComponent({
     };
   },
   methods: {
-    async onSubmit() {
+    async sendComment() {
       await patientAPI.postPatient(this.patientRegistration);
       return router.push("/authorization/login").catch((error) => {
         console.log(error.response.body);

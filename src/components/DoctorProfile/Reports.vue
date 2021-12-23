@@ -30,7 +30,6 @@ export default defineComponent({
       }
     },
   },
-
   data() {
     return {
       //ToDo: убрать хардкод
@@ -182,9 +181,6 @@ export default defineComponent({
   computed: {},
 });
 </script>
-
-
-
 
 <style scoped>
 @media (max-width: 720px) {

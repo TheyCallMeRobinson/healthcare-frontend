@@ -1,5 +1,3 @@
-
-
 const timeout = 100;
 let isAuthorized = false;
 

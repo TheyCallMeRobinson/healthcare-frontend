@@ -77,6 +77,10 @@ export const doctorAPI = {
     putVisit(visitId: number) {
         return apiClient.put(`/timerecord/${visitId}`);
     },
+    // не помню что за url
+    postReport(reportDate : any){
+        return apiClient.post(`/`, {...reportDate});
+    },
     postSpecialityByDoctorId(doctorId: number, specialityData: any) {
         return apiClient.post(`/doctors/${doctorId}/specialities`, {...specialityData})
     },

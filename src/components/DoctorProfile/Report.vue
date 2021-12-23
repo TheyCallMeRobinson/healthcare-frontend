@@ -15,6 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import {adminAPI, doctorAPI} from "@/api/EventService";
 
 export default defineComponent({
   data() {
@@ -27,8 +28,13 @@ export default defineComponent({
   },
   methods: {
     onSubmit() {
-      //ToDo: вставить вызов апи
-      console.log(this.reportForm);
+      //ToDo: проверить вызов апи
+      const regData = this.reportForm;
+      const data = {
+        visitResults: regData.visitResults,
+        recipe: regData.recipe
+      };
+      doctorAPI.postReport(data);
     },
   },
 });

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const apiClient = axios.create({
-     baseURL: 'http://localhost:8080/api',
+    baseURL: 'http://localhost:8080/api',
     //baseURL: 'http://servachok2021.ddns.net:8081/api',
     withCredentials: true,
     headers: {
@@ -43,13 +43,16 @@ export const patientAPI = {
         return apiClient.delete(`/appointments/${id}`)
     },
     postPatient(data: any) {
-        return apiClient.post('/patients', { ...data })
+        return apiClient.post('/patients', {...data})
     },
-    getCommentByDateAndPatientID(date: Date, id: number){
+    getCommentByDateAndPatientID(date: Date, id: number) {
         return apiClient('/comment')
     },
-    postVisit(data: any){
+    postVisit(data: any) {
         return apiClient.post('/visit', {...data})
+    },
+    postComment(data:any){
+        return apiClient.post('/comment', {...data})
     }
 }
 
@@ -68,6 +71,13 @@ export const doctorAPI = {
     },
     getSpecialitiesByDoctorId(doctorId: number) {
         return apiClient.get(`/doctors/${doctorId}/specialities`)
+    },
+
+    postReport(//doctorId: number, 
+               reportData: { visitResults: string; recipe: string }) {
+        return apiClient.post(`/doctors/`+
+        //${doctorId}/
+        +`report`, reportData)
     }
 }
 
@@ -76,20 +86,18 @@ export const adminAPI = {
         return apiClient.get(`/admins/${id}`)
     },
     postAdmin(data: any) {
-        return apiClient.post('/admins', { ...data })
+        return apiClient.post('/admins', {...data})
     },
     postDoctor(data: any) {
-        return apiClient.post('/doctors', { ...data })
+        return apiClient.post('/doctors', {...data})
     },
-    postAllergy(data: any){
+    postAllergy(data: any) {
         return apiClient.post('/allergies', {...data})
     },
-    getAllAllergies(){
+    getAllAllergies() {
         return apiClient.get('/allergies');
-    }
-}
-const EventService = {
-    getComment(id: number){
+    },
+    getComment(id: number) {
         return apiClient.get(`/comment/${id}`)
     }
 }

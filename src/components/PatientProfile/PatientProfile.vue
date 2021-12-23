@@ -14,7 +14,6 @@
     <el-tabs class="profile__tabs" v-model="activeName">
       <el-tab-pane class="profile__tab" label="Визиты" name="first">
         <Visits />
-        
       </el-tab-pane>
       <el-tab-pane class="profile__tab" label="Болезни" name="second"
         ><Diseases :patientId="loginModule.id"

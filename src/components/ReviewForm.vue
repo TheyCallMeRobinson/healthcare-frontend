@@ -16,6 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Review from "../models/review.model";
+import {doctorAPI, patientAPI} from "@/api/EventService";
 
 export default defineComponent({
   data() {
@@ -28,7 +29,14 @@ export default defineComponent({
   },
   methods: {
     onSubmit() {
+      //TODO: проверить работу
       console.log(this.reviewForm);
+      const regData = this.reviewForm;
+      const data = {
+        patientComment: regData.patientComment,
+        rating: regData.rating
+      };
+      patientAPI.postComment(data);
     },
   },
 });

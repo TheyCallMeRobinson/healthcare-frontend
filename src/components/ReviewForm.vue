@@ -1,42 +1,33 @@
 <template>
-  <router-link :to="{ name: 'profile' }"
-    ><el-button icon="el-icon-arrow-left">Назад</el-button></router-link
-  >
+  <router-link :to="{ name: 'profile' }">
+    <el-button icon="el-icon-arrow-left">Назад</el-button>
+  </router-link>
   <el-form class="form" label-position="top" size="medium">
     <el-form-item label="Ваша оценка" class="rating-item">
-      <el-rate v-model="reviewForm.rating"> </el-rate>
+      <el-rate v-model="reviewForm.mark"> </el-rate>
     </el-form-item>
     <el-form-item label="Комментарий">
-      <el-input type="textarea" v-model="reviewForm.patientComment"></el-input>
+      <el-input type="textarea" v-model="reviewForm.comment"></el-input>
     </el-form-item>
-    <el-button type="primary" @click="onSubmit">Отправить</el-button>
+    <el-button type="primary" @click="sendComment()">Отправить</el-button>
   </el-form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Review from "../models/review.model";
-import {doctorAPI, patientAPI} from "@/api/EventService";
+import {patientAPI} from "@/api/EventService";
 
 export default defineComponent({
   data() {
     return {
-      reviewForm: {
-        patientComment: "",
-        rating: 0,
-      } as Review,
+      reviewForm: {} as Review,
     };
   },
   methods: {
-    onSubmit() {
-      //TODO: проверить работу
+    sendComment() {
+      patientAPI.postComment(this.reviewForm.doctorId, this.reviewForm);
       console.log(this.reviewForm);
-      const regData = this.reviewForm;
-      const data = {
-        patientComment: regData.patientComment,
-        rating: regData.rating
-      };
-      patientAPI.postComment(data);
     },
   },
 });

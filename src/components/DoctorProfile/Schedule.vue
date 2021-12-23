@@ -10,9 +10,7 @@
     <el-table-column :label="day.day" prop="time" width="100">
     </el-table-column>
     <el-table-column prop="id">
-      <el-button icon="el-icon-delete" class="delete-button" size="small"
-        >Удалить Shedule.vue</el-button
-      >
+      <el-button icon="el-icon-delete" class="delete-button" size="small">Удалить</el-button>
       <router-link :to="{ name: 'addReport' }">
         <el-button
           class="report-button"

@@ -8,7 +8,7 @@
     >
       <el-menu-item index="/portal/main-screen"> Главная </el-menu-item>
       <el-menu-item index="/portal/profile"> Профиль </el-menu-item>
-      <el-menu-item index="/portal/system-settings" v-if="userType === 'admin'"> Настройки системы </el-menu-item>
+      <el-menu-item index="/portal/system-settings" v-if="userType === 'ADMIN'"> Настройки системы </el-menu-item>
       <el-menu-item
         index="/portal/new-visit"
         v-if="loginModule.role === 'PATIENT'"
@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { authAPI } from "@/api/EventService";
 import router from "@/router";
 import { defineComponent } from "vue";
@@ -43,8 +43,8 @@ export default defineComponent({
     ...mapState(["loginModule"]),
   },
   async created() {
-    // ToDo: достать роль клиента
-    this.userType = "admin";
+    this.userType = this.$store._state.data.loginModule.role;
+    //console.log(this.$store, "тип пользователя ");
   },
   methods: {
     logout() {

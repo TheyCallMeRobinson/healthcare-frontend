@@ -62,7 +62,8 @@ export default defineComponent({
     };
   },
   methods: {
-    sendComment() {
+    onSubmit() {
+      // TODO: WTF WTF WTF WTF&!^&!!!
       this.$store.dispatch("login", this.formData);
     },
   },

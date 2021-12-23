@@ -32,6 +32,8 @@ export default defineComponent({
   },
   data() {
     return {
+      //ToDo: убрать хардкод
+      //ToDo: куда прикрепляется этот элемент?
       reports: [
         {
           day: "Пн",

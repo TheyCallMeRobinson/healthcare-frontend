@@ -9,12 +9,13 @@
     <el-form-item label="Комментарий">
       <el-input type="textarea" v-model="reportForm.recipe"></el-input>
     </el-form-item>
-    <el-button type="primary" @click="sendReport()">Отправить</el-button>
+    <el-button type="primary" @click="onSubmit">Отправить</el-button>
   </el-form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import {adminAPI, doctorAPI} from "@/api/EventService";
 
 export default defineComponent({
   data() {
@@ -26,8 +27,14 @@ export default defineComponent({
     };
   },
   methods: {
-    sendReport() {
-      console.log(this.reportForm);
+    onSubmit() {
+      //ToDo: проверить вызов апи
+      const regData = this.reportForm;
+      const data = {
+        visitResults: regData.visitResults,
+        recipe: regData.recipe
+      };
+      doctorAPI.postReport(data);
     },
   },
 });

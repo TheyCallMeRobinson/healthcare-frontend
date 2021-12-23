@@ -19,7 +19,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+// TODO: показывать действия, только если они уже не были сделаны (отзыв).
+// похоже надо делать computed
 export default defineComponent({
   props: {
     oldVisits: [],

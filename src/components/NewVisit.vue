@@ -34,10 +34,21 @@
       <el-col class="line" :span="2">-</el-col>
       <el-col :span="11">
         <el-form-item prop="date2">
+          <el-form-item label="Время" prop="time">
+            <el-select v-model="chosenTime" placeholder="Выберите время">
+              <el-option
+                  v-for="spec in specialities"
+                  :key="spec.id"
+                  :value="spec.id"
+                  :label="spec.name">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <!--
           <el-time-picker
               placeholder="Выберите время"
               style="width: 100%"
-          ></el-time-picker>
+          ></el-time-picker> !-->
         </el-form-item>
       </el-col>
     </el-form-item>
@@ -65,23 +76,24 @@
 <script>
 import {doctorAPI, patientAPI} from "@/api/EventService";
 import {defineComponent, reactive, toRefs} from "vue";
-
+// TODO: адаптировать под нужды бека
 export default defineComponent({
   data() {
     return {
       item: {},
       visitForm: {
         doctor: "",
-        speciality:"",
-        date:"",
-        time:""
+        speciality: "",
+        date: "",
+        time: ""
       },
       specialities: [],
       doctors: [],
       chosenSpec: "",
       chosenDoctor: "",
       specialities_pulled: [],
-      pickedDate:""
+      pickedDate: "",
+      chosenTime: ""
     };
   },
   async created() {

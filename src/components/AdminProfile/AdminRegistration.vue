@@ -71,6 +71,7 @@
 <script>
 import { adminAPI, doctorAPI } from "@/api/EventService";
 export default {
+  //TODO: check this page
   data() {
     return {
       userType: "admin",
@@ -78,22 +79,11 @@ export default {
         rating: 0,
       },
       allSpecialities: [
-        {
-          name: "Терапевт",
-          id: 1,
-        },
-        {
-          name: "Смерть",
-          id: 2,
-        },
+        
       ],
       currentSpecialities: [
         {
           id: 0,
-          receive_date: "",
-        },
-        {
-          id: 1,
           receive_date: "",
         },
       ],

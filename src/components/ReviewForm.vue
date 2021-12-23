@@ -27,7 +27,7 @@ export default defineComponent({
   methods: {
     sendComment() {
       patientAPI.postComment(this.reviewForm.doctorId, this.reviewForm);
-      console.log(this.reviewForm);
+      //console.log(this.reviewForm);
     },
   },
 });

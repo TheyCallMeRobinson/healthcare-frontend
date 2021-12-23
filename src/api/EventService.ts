@@ -89,6 +89,9 @@ export const doctorAPI = {
     },
     getSpecialitiesByDoctorId(doctorId: number) {
         return apiClient.get(`/doctors/${doctorId}/specialities`)
+    },
+    getFreeVisitsByDate(date: any) {
+        return apiClient.get(`/timerecord/${date}`);
     }
 }
 

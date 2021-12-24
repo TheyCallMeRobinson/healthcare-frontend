@@ -120,9 +120,10 @@ export default defineComponent({
 
   methods:
       {
-        sendComment() {
+        onSubmit() {
           //patientAPI.postVisit(this.visitForm);
           this.visitForm = [this.chosenDoctor.id, this.chosenSpec, this.pickedDate];
+          doctorAPI.postVisit(this.visitForm);
           console.log(this.visitForm);
         }
         ,

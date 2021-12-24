@@ -1,8 +1,8 @@
 import axios from "axios"
 
 const apiClient = axios.create({
-    // baseURL: 'http://localhost:8080/api',
-    baseURL: 'http://servachok2021.ddns.net:8081/api',
+    baseURL: 'http://localhost:8080/api',
+    //baseURL: 'http://servachok2021.ddns.net:8081/api',
     withCredentials: true,
     headers: {
         Accept: 'application/json',
@@ -77,7 +77,7 @@ export const doctorAPI = {
     putVisit(visitId: number) {
         return apiClient.put(`/timerecord/${visitId}`);
     },
-    // не помню что за url
+    
     postReport(reportDate : any){
         return apiClient.post(`/`, {...reportDate});
     },
@@ -106,7 +106,8 @@ export const adminAPI = {
         return apiClient.post('/doctors', {...data})
     },
     postAllergy(data: any) {
-        return apiClient.post('/allergies', {...data})
+        console.log(data)
+        return apiClient.post('/allergies', data)
     },
     getAllAllergies() {
         return apiClient.get('/allergies');

@@ -9,6 +9,7 @@
   >
 
     <h2>Создание новой записи</h2>
+    <!--
     <el-form-item label="Специальность" prop="specialty">
       <el-select v-model="chosenSpec" placeholder="Специальность">
         <el-option
@@ -19,26 +20,37 @@
         </el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="Дата и время" required>
-      <el-col :span="11">
+    -->
+    <el-form-item label="Врач" prop="doctors" required>
+      <el-select v-model="chosenDoctor" placeholder="Выберите врача" @change="docPicked">
+        <el-option
+            v-for="doctor in doctors"
+            :key="doctor.id"
+            :label="`${doctor.first_name} ${doctor.mid_name} ${doctor.last_name}`"
+            :value="doctor">
+          <!--            :label="`${doctor.first_name} ${doctor.mid_name} ${doctor.last_name}`"-->
+        </el-option>
+      </el-select>
+    </el-form-item>
+    <template v-if="chosenDoctor">
+      <el-form-item label="Дата и время" required>
         <el-form-item prop="date1">
-          <el-date-picker
-              v-model="pickedDate"
-              type="date"
-              placeholder="Выберите дату"
-              style="width: 100%"
-              @change="datePicked"
-          >
-          </el-date-picker>
-        </el-form-item>
-      </el-col>
-      <el-col class="line" :span="2">-</el-col>
-      <el-col :span="11">
-        <el-form-item prop="date2">
-          <el-form-item label="Время" prop="time">
-            <el-select v-model="chosenTime" placeholder="Выберите время">
+          <el-form-item label="Выберите дату" prop="time">
+            <el-select @change="dateChangeHandler" v-model="pickedDate" placeholder="Дата">
               <el-option
-                  v-for="time in timesAvailable"
+                  v-for="date in datesAvailable"
+                  :key="date"
+                  :value="date"
+                  :label="date">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form-item>
+        <el-form-item v-if="pickedDate" prop="date2">
+          <el-form-item label="Теперь время" prop="time">
+            <el-select v-model="chosenTime" placeholder="Время">
+              <el-option
+                  v-for="time in timeAvailable"
                   :key="time"
                   :value="time"
                   :label="time">
@@ -51,20 +63,8 @@
               style="width: 100%"
           ></el-time-picker> !-->
         </el-form-item>
-      </el-col>
-    </el-form-item>
-
-    <el-form-item label="Врач" prop="doctors" required>
-      <el-select v-model="chosenDoctor" placeholder="Выберите врача" @change="docPicked">
-        <el-option
-            v-for="doctor in doctors"
-            :key="doctor.id"
-            :label="`${doctor.first_name} ${doctor.mid_name} ${doctor.last_name}`"
-            :value="doctor">
-          <!--            :label="`${doctor.first_name} ${doctor.mid_name} ${doctor.last_name}`"-->
-        </el-option>
-      </el-select>
-    </el-form-item>
+      </el-form-item>
+    </template>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">Подтвердить</el-button>
     </el-form-item>
@@ -77,6 +77,7 @@
 <script>
 import {doctorAPI, patientAPI} from "@/api/EventService";
 import {defineComponent, reactive, toRefs} from "vue";
+
 export default defineComponent({
   data() {
     return {
@@ -89,6 +90,9 @@ export default defineComponent({
       },
       specialities: [],
       doctors: [],
+      datesAvailable: [],
+      timeAvailable: [],
+      datesAndTime: [],
       chosenSpec: "",
       chosenDoctor: "",
       specialities_pulled: [],
@@ -112,7 +116,6 @@ export default defineComponent({
         return time.getTime() > Date.now()
       },
     })
-
     return {
       ...toRefs(state),
     }
@@ -122,9 +125,8 @@ export default defineComponent({
       {
         onSubmit() {
           //patientAPI.postVisit(this.visitForm);
-          this.visitForm = [this.chosenDoctor.id, this.chosenSpec, this.pickedDate];
+          this.visitForm = [this.chosenDoctor.id, this.chosenDoctor.specialities[0], this.pickedDate];
           doctorAPI.postVisit(this.visitForm);
-          console.log(this.visitForm);
         }
         ,
         docPicked(event) {
@@ -135,19 +137,20 @@ export default defineComponent({
               });
             })
           });
+          doctorAPI.getFreeVisitsByDoctorId(event.id).then((response) => {
+            this.datesAndTime = response.data;
+            console.log(response.data);
+            this.datesAvailable = response.data.map((date) => {
+              return date.date;
+            })
+
+          })
         },
-        datePicked(event) {
-          doctorAPI.getFreeVisitsByDate(event).then((response) => {
-            return response.data.find((dddd) => {
-              if (this.chosenDoctor !== "") {
-                if (dddd.data.doctorId === this.chosenDoctor.id)
-                  return dddd;
-              } else {
-                //TODO: см console log ниже
-                console.log("Здесь недоделано. Здесь должно проверяться, что есть свободные записи, подходщие по специальности врача, как в методе выше")
-              }
-            });
-          });
+        dateChangeHandler(event) {
+          const pickedDate = event;
+          this.timeAvailable = this.datesAndTime.find((date)=>{
+            return date.date === pickedDate;
+          }).freeTime;
         }
       }
   ,

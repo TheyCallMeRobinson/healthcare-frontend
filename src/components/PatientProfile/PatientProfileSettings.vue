@@ -51,9 +51,7 @@
       <el-input type="password" v-model="settings.passwordConfirm"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button @click="submit(settings)" type="primary"
-        >Подтвердить</el-button
-      >
+      <el-button @click="submit(settings)" type="primary">Подтвердить</el-button>
       <el-alert v-if="success" title="Успешно изменено" type="success" />
     </el-form-item>
   </el-form>

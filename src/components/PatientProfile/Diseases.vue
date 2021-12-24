@@ -30,6 +30,8 @@ export default defineComponent({
   created() {
     patientAPI.getPatientDiseases(this.patientId).then((response) => {
       this.diseases = response.data;
+    }).catch((error) => {
+      console.log(error)
     });
   },
 });

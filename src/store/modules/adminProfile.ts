@@ -1,4 +1,4 @@
-import { adminAPI } from './../../api/EventService';
+import { adminAPI } from '@/api/EventService';
 import Admin from '@/models/admin.model';
 
 const adminProfile = {

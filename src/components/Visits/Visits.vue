@@ -5,6 +5,8 @@
     </el-tab-pane>
     <el-tab-pane label="Запись" name="second">
       <Future :newVisits="newVisits" />
+<!--              :deleteVisit="deleteVisit" -->
+<!--      />-->
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -19,7 +21,8 @@ export default defineComponent({
   data() {
     return {
       activeName: "first",
-      visits: [],
+      newVisits: [],
+      oldVisits: [],
       // visits: [
       //   {
       //     id: 0,
@@ -56,26 +59,38 @@ export default defineComponent({
       // ],
     };
   },
-  // async created() {
-  //   this.visits = await patientAPI.getVisitsByPatientId(this.patientId)
-  //       .then((response) => {
-  //         return response.data;
-  //       });
-  // },
+  async created() {
+    patientAPI.getAllPlannedVisitsByPatientId(this.$store._state.data.loginModule.id).then((response) => {
+      this.newVisits = response.data;
+      console.log(response.data)
+    }).catch((error) => {
+      console.log(error)
+    });
+    
+    patientAPI.getAllEndedVisitsByPatientId(this.$store._state.data.loginModule.id).then((response) => {
+      this.oldVisits = response.data;
+    }).catch((error) => {
+      console.log(error)
+    });
+  },
   components: {
     History,
     Future,
   },
-  computed: {
-    newVisits() {
-      return patientAPI.getAllPlannedVisitsByPatientId(this.patientId);
-      // return this.visits.filter((visit) => visit.status === "new");
-    },
-    oldVisits() {
-      return patientAPI.getAllEndedVisitsByPatientId(this.patientId);
-      // return this.visits.filter((visit) => visit.status === "old");
-    },
-  },
+  // methods: {
+  //   deleteVisit:(id) => {
+  //     patientAPI.deleteVisitById(id).then(() => {
+  //      
+  //       patientAPI.getAllPlannedVisitsByPatientId(this.$store._state.data.loginModule.id).then((response) => {
+  //         this.newVisits = response.data;
+  //         console.log(response.data)
+  //       }).catch((error) => {
+  //         console.log(error)
+  //       });
+  //      
+  //     });
+  //   },
+  // },
 });
 </script>
 

@@ -1,4 +1,4 @@
-import { authAPI } from './../../api/EventService';
+import { authAPI } from '@/api/EventService';
 import router from '@/router';
 
 const loginModule = {

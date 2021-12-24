@@ -1,19 +1,20 @@
 <template>
   <el-tabs type="card" v-model="activeName">
     <el-tab-pane label="История" name="first">
-      <History :oldVisits="oldVisits" />
+      <History :oldVisits="oldVisits"/>
     </el-tab-pane>
     <el-tab-pane label="Запись" name="second">
-      <Future :newVisits="newVisits" />
+      <Future :newVisits="newVisits"/>
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import {defineComponent} from "vue";
 import Future from "./Future.vue";
 import History from "./History.vue";
 import {patientAPI} from "@/api/EventService";
+import NewVisit from "@/components/NewVisit";
 
 export default defineComponent({
   data() {
@@ -56,12 +57,12 @@ export default defineComponent({
       // ],
     };
   },
-  // async created() {
-  //   this.visits = await patientAPI.getVisitsByPatientId(this.patientId)
-  //       .then((response) => {
-  //         return response.data;
-  //       });
-  // },
+  async created() {
+    this.visits = await patientAPI.getVisitsByPatientId(this.patientId)
+        .then((response) => {
+          return response.data;
+        });
+  },
   components: {
     History,
     Future,

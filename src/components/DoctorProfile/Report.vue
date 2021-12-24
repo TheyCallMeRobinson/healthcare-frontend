@@ -28,13 +28,12 @@ export default defineComponent({
   },
   methods: {
     onSubmit() {
-      //ToDo: проверить вызов апи
       const regData = this.reportForm;
       const data = {
         visitResults: regData.visitResults,
         recipe: regData.recipe
       };
-      doctorAPI.postReport(data);
+      doctorAPI.putReport(2,data );
     },
   },
 });

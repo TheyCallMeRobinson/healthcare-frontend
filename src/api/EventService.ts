@@ -78,8 +78,8 @@ export const doctorAPI = {
         return apiClient.put(`/timerecord/${visitId}`);
     },
     
-    postReport(reportDate : any){
-        return apiClient.post(`/`, {...reportDate});
+    putReport(visitId: number, reportDate : any){
+        return apiClient.post(`/timerecord/${visitId}`, {...reportDate});
     },
     postSpecialityByDoctorId(doctorId: number, specialityData: any) {
         return apiClient.post(`/doctors/${doctorId}/specialities`, {...specialityData})
@@ -105,9 +105,8 @@ export const adminAPI = {
     postDoctor(data: any) {
         return apiClient.post('/doctors', {...data})
     },
-    postAllergy(data: any) {
-        console.log(data)
-        return apiClient.post('/allergies', data)
+    postAllergy(name: any) {
+        return apiClient.post('/allergies', {name})
     },
     getAllAllergies() {
         return apiClient.get('/allergies');

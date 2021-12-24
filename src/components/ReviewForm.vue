@@ -9,7 +9,7 @@
     <el-form-item label="Комментарий">
       <el-input type="textarea" v-model="reviewForm.comment"></el-input>
     </el-form-item>
-    <el-button type="primary" @click="sendComment()">Отправить</el-button>
+    <el-button type="primary" @click="onSubmit()">Отправить</el-button>
   </el-form>
 </template>
 
@@ -25,7 +25,7 @@ export default defineComponent({
     };
   },
   methods: {
-    sendComment() {
+    onSubmit() {
       patientAPI.postComment(this.reviewForm.doctorId, this.reviewForm);
       //console.log(this.reviewForm);
     },

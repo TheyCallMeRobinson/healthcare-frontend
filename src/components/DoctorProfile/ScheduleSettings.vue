@@ -91,7 +91,7 @@ export default {
     // reset() {
     //   this.$store.dispatch("doctorProfile/resetWeekends", null, { root: true });
     // },
-    sendComment() {
+    resetWeekends() {
       console.log("sfgfs");
     },
     saveChanges() {

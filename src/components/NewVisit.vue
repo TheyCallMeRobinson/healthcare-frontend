@@ -27,6 +27,7 @@
               type="date"
               placeholder="Выберите дату"
               style="width: 100%"
+              @change="datePicked"
           >
           </el-date-picker>
         </el-form-item>
@@ -37,10 +38,10 @@
           <el-form-item label="Время" prop="time">
             <el-select v-model="chosenTime" placeholder="Выберите время">
               <el-option
-                  v-for="spec in specialities"
-                  :key="spec.id"
-                  :value="spec.id"
-                  :label="spec.name">
+                  v-for="time in timesAvailable"
+                  :key="time"
+                  :value="time"
+                  :label="time">
               </el-option>
             </el-select>
           </el-form-item>
@@ -76,7 +77,6 @@
 <script>
 import {doctorAPI, patientAPI} from "@/api/EventService";
 import {defineComponent, reactive, toRefs} from "vue";
-// TODO: адаптировать под нужды бека
 export default defineComponent({
   data() {
     return {
@@ -93,7 +93,7 @@ export default defineComponent({
       chosenDoctor: "",
       specialities_pulled: [],
       pickedDate: "",
-      chosenTime: ""
+      chosenTime: "",
     };
   },
   async created() {
@@ -102,6 +102,7 @@ export default defineComponent({
     });
     this.specialities = specialities;
     this.specialities_pulled = specialities;
+
     const doctors = await doctorAPI.getDoctors().then((response) => {
       return response.data;
     });
@@ -119,9 +120,10 @@ export default defineComponent({
 
   methods:
       {
-        sendComment() {
+        onSubmit() {
           //patientAPI.postVisit(this.visitForm);
           this.visitForm = [this.chosenDoctor.id, this.chosenSpec, this.pickedDate];
+          doctorAPI.postVisit(this.visitForm);
           console.log(this.visitForm);
         }
         ,
@@ -132,6 +134,19 @@ export default defineComponent({
                 return eeee.id === element.id;
               });
             })
+          });
+        },
+        datePicked(event) {
+          doctorAPI.getFreeVisitsByDate(event).then((response) => {
+            return response.data.find((dddd) => {
+              if (this.chosenDoctor !== "") {
+                if (dddd.data.doctorId === this.chosenDoctor.id)
+                  return dddd;
+              } else {
+                //TODO: см console log ниже
+                console.log("Здесь недоделано. Здесь должно проверяться, что есть свободные записи, подходщие по специальности врача, как в методе выше")
+              }
+            });
           });
         }
       }

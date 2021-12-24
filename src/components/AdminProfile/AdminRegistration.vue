@@ -141,7 +141,7 @@ export default {
       });
   },
   methods: {
-    async sendComment() {
+    async onSubmit() {
       const regData = this.registration;
       if (this.userType === "admin") {
         const data = {

@@ -55,13 +55,13 @@ export default {
     //     });
   },
   methods: {
-    async sendComment() {
+    async onSubmit() {
       const regData = this.creation;
       const data = {
         name: regData.name,
         //description: regData.description,
       };
-      adminAPI.postAllergy(data);
+      adminAPI.postAllergy(data.name);
     }
   },
 };

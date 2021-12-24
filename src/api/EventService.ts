@@ -2,7 +2,7 @@ import axios from "axios"
 
 const apiClient = axios.create({
     baseURL: 'http://localhost:8080/api',
-    // baseURL: 'http://servachok2021.ddns.net:8081/api',
+    //baseURL: 'http://servachok2021.ddns.net:8081/api',
     withCredentials: true,
     headers: {
         Accept: 'application/json',
@@ -38,8 +38,8 @@ export const patientAPI = {
     getPatientAllergies(id: number) {
         return apiClient.get(`/patients/${id}/allergies`)
     },
-    deleteVisitById(timeRecordId: number) {
-        return apiClient.delete(`/timerecord/${timeRecordId}`);
+    deleteVisitById(visitId: number) {
+        return apiClient.delete(`/timerecord/${visitId}`);
     },
     getAllPlannedVisitsByPatientId(patientId: number) {
         return apiClient.get(`/timerecord/${patientId}/planned`);
@@ -77,9 +77,9 @@ export const doctorAPI = {
     putVisit(visitId: number) {
         return apiClient.put(`/timerecord/${visitId}`);
     },
-    // не помню что за url
-    postReport(reportDate : any){
-        return apiClient.post(`/`, {...reportDate});
+    
+    putReport(visitId: number, reportDate : any){
+        return apiClient.post(`/timerecord/${visitId}`, {...reportDate});
     },
     postSpecialityByDoctorId(doctorId: number, specialityData: any) {
         return apiClient.post(`/doctors/${doctorId}/specialities`, {...specialityData})
@@ -89,6 +89,9 @@ export const doctorAPI = {
     },
     getSpecialitiesByDoctorId(doctorId: number) {
         return apiClient.get(`/doctors/${doctorId}/specialities`)
+    },
+    getFreeVisitsByDate(date: any) {
+        return apiClient.get(`/timerecord/${date}`);
     }
 }
 
@@ -102,8 +105,8 @@ export const adminAPI = {
     postDoctor(data: any) {
         return apiClient.post('/doctors', {...data})
     },
-    postAllergy(data: any) {
-        return apiClient.post('/allergies', {...data})
+    postAllergy(name: any) {
+        return apiClient.post('/allergies', {name})
     },
     getAllAllergies() {
         return apiClient.get('/allergies');

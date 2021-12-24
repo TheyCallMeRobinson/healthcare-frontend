@@ -45,7 +45,6 @@ export default defineComponent({
   async created() {
     this.userType = this.$store._state.data.loginModule.role;
     //console.log(this.$store, "тип пользователя ");
-    // TODO: проверить работоспособность
   },
   methods: {
     logout() {
